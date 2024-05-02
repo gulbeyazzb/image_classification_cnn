@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>MERHABA</h1>
+    <p>
+      Ben Gülbeyaz Bayram Özer. Bilgisayar Mühendisi Mezunuyum. Güncel
+      teknolojilerle kendimi geliştirmek adına 6 aylık full stack development
+      bootcampine katıldım. 6 ay boyunca tam zamanlı olarak 70 civarı proje
+      geliştirdim. Şubat 2024 - Nisan 2024 arası WTECH'in "Teknolojinin
+      100'leri" Projesi kapsamında gerçekleştirdiği Python ile Yapay Zeka eğitim
+      programına kaydoldum. Şu anda bulunduğunuz web uygulaması, eğitimi bitirme
+      projesi olarak geliştirildi. CNN ile görüntü sınıflandırma uygulaması
+      geliştirildi ve fastApi web framework'ü ile API geliştirildi.
+    </p>
+
+        <h2>Resim Yükle</h2>
+        <input type="file" id="choose_image" accept="image/*" /><br /><br />
+        <img id="choosing_image" /><br /><br />
+      
+      
+        <h2>Tom vs Jerry</h2>
+        <button onclick="predict_image()">Hangisi?</button>
+        <p id="result"></p>
+        <br /><br />
+      
+    </div>
+
+    <script>
+      function predict_image() {
+        var choosing_file = document.getElementById("choose_image").files[0];
+
+        if (!choosing_file) {
+          alert("Lütfen bir resim seçin!");
+          return;
+        }
+
+        var file_image = new FormData();
+        file_image.append("file", choosing_file);
+
+        fetch("/predict_image", {
+          method: "POST",
+          body: file_image,
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            var result =  data 
+            document.getElementById("result").textContent = result;
+          })
+          .catch((error) => console.error("Error:", error));
+      }
+
+      document
+        .getElementById("choose_image")
+        .addEventListener("change", function (event) {
+          var loadedData = event.target.files[0];
+          var reader = new FileReader();
+
+          reader.onload = function (event) {
+            var new_choosing_img = document.getElementById("choosing_image");
+            new_choosing_img.src = event.target.result;
+          };
+
+          reader.readAsDataURL(loadedData);
+        });
+    </script>
+  </body>
+</html>
