@@ -50,10 +50,10 @@ def predict(input_parameters : model_input ):
 @app.post("/predict_image")
 async def predict_image(file: UploadFile = File(...)):
     load_cnn_model = load_model(r'C:\Users\Hp\Documents\GitHub\image_classification_cnn\fastApi\models\model_cnn.h5')
-    with open("frame12.jpg", "wb") as f:
+    with open("uploaded_img.jpg", "wb") as f:
         f.write(await file.read())
         
-    test_image = Image.open("frame12.jpg")
+    test_image = Image.open("uploaded_img.jpg")
     test_image = test_image.resize((240, 240))
     
     test_image = np.array(test_image)
