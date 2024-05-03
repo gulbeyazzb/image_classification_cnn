@@ -1,7 +1,5 @@
-from fastapi import FastAPI, Request, File, UploadFile 
+from fastapi import FastAPI, File, UploadFile 
 from pydantic import BaseModel # Fonksiyonlara gelen parametreleri kontrol etmek için
-from tensorflow import keras
-import pandas as pd
 from sklearn.preprocessing import StandardScaler
 from keras.models import load_model
 from tensorflow.keras.preprocessing import image
